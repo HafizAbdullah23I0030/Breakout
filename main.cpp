@@ -9,10 +9,13 @@ int main()
    paddle.setFillColor(sf::Color::Red);
    paddle.setPosition(350.0f, 550.0f);
 
-   // Ball setup
-   sf::CircleShape ball(10.0f);
-   ball.setFillColor(sf::Color::Green);
-   ball.setPosition(395.0f, 300.0f);
+   // Ball texture and sprite setup
+   sf::Texture ballTexture;
+   ballTexture.loadFromFile("C:/Users/Noor Links/OneDrive/Desktop/Breakout/ball.png");
+   sf::Sprite ballSprite;
+   ballSprite.setTexture(ballTexture);
+   ballSprite.setScale(0.1f, 0.1f);
+   ballSprite.setPosition(395.0f, 300.0f);
 
    sf::Vector2f ballVelocity(0.3f, 0.3f);
 
@@ -36,33 +39,33 @@ int main()
       }
 
       // Ball movement and bouncing logic
-      ball.move(ballVelocity);
+      ballSprite.move(ballVelocity);
 
-      if (ball.getPosition().x <= 0 || ball.getPosition().x + ball.getRadius() * 2 >= window.getSize().x)
+      if (ballSprite.getPosition().x <= 0 || ballSprite.getPosition().x + ballSprite.getGlobalBounds().width >= window.getSize().x)
       {
          ballVelocity.x = -ballVelocity.x;
       }
-      if (ball.getPosition().y <= 0)
+      if (ballSprite.getPosition().y <= 0)
       {
          ballVelocity.y = -ballVelocity.y;
       }
 
       // Ball and paddle collision
-      if (ball.getGlobalBounds().intersects(paddle.getGlobalBounds()))
+      if (ballSprite.getGlobalBounds().intersects(paddle.getGlobalBounds()))
       {
          ballVelocity.y = -ballVelocity.y;
       }
 
       // Ball out of bounds (bottom)
-      if (ball.getPosition().y + ball.getRadius() * 2 >= window.getSize().y)
+      if (ballSprite.getPosition().y + ballSprite.getGlobalBounds().height >= window.getSize().y)
       {
          // Reset ball position
-         ball.setPosition(395.0f, 300.0f);
+         ballSprite.setPosition(395.0f, 300.0f);
       }
 
       window.clear();
       window.draw(paddle);
-      window.draw(ball);
+      window.draw(ballSprite);
       window.display();
    }
 
