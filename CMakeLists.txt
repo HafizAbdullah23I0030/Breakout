@@ -8,7 +8,7 @@ if (WIN32)
     set(SFML_DIR C:/SFML/lib/cmake/SFML)
 endif (WIN32)
 
-find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
+find_package(SFML 2 COMPONENTS graphics audio REQUIRED)
 
 add_executable(Breakout main.cpp
         main.cpp
