@@ -11,7 +11,7 @@ int main()
 
    // Ball texture and sprite setup
    sf::Texture ballTexture;
-   ballTexture.loadFromFile("C:/Users/Noor Links/OneDrive/Desktop/Breakout/ball.png");
+   ballTexture.loadFromFile("./resources/assets/ball.png");
    sf::Sprite ballSprite;
    ballSprite.setTexture(ballTexture);
    ballSprite.setScale(0.1f, 0.1f);

@@ -14,5 +14,6 @@ add_executable(Breakout main.cpp
         main.cpp
 )
 
+file(COPY resources DESTINATION ${CMAKE_BINARY_DIR})
 
 target_link_libraries(Breakout sfml-graphics sfml-audio)
