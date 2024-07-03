@@ -31,14 +31,14 @@ void BallMovementFunction(sf::Sprite &ballSprite, sf::Vector2f &ballVelocity, co
     ballSprite.move(ballVelocity);
 
     if (ballSprite.getPosition().x <= 140 || ballSprite.getPosition().x + ballSprite.getGlobalBounds().width >= windowWidth) {
-        ballVelocity.x = -ballVelocity.x;
+        ballVelocity.x *= -1;
     }
     if (ballSprite.getPosition().y <= 160) {
-        ballVelocity.y = -ballVelocity.y;
+        ballVelocity.y *= -1;
     }
 
     if (ballSprite.getGlobalBounds().intersects(paddleSprite.getGlobalBounds())) {
-        ballVelocity.y = -ballVelocity.y;
+        ballVelocity.y *= -1;
     }
 
     if (ballSprite.getPosition().y + ballSprite.getGlobalBounds().height >= windowHeight) {
@@ -50,13 +50,28 @@ void BallAndCollisionFunction(sf::Sprite &ballSprite, sf::Vector2f &ballVelocity
     for (int row = 0; row < 6; ++row) {
         for (int col = 0; col < 6; ++col) {
             if (ballSprite.getGlobalBounds().intersects(tiles[row][col].getGlobalBounds())) {
-                ballVelocity.y = -ballVelocity.y;
+                sf::FloatRect ballBounds = ballSprite.getGlobalBounds();
+                sf::FloatRect tileBounds = tiles[row][col].getGlobalBounds();
+
+                // Calculates the intersection element
+                sf::FloatRect intersection;
+                ballBounds.intersects(tileBounds, intersection);
+
+                // Determines the collision side
+                if (intersection.width < intersection.height) {
+                    // Collision is on the left or right side
+                    ballVelocity.x *= -1;
+                } else {
+                    // Collision is on the top or bottom side
+                    ballVelocity.y *= -1;
+                }
                 tiles[row][col].setPosition(900, 1100); // Makes the tile invisible by removing it
                 return;
             }
         }
     }
 }
+
 
 int main() {
     // Some Data
@@ -65,8 +80,15 @@ int main() {
     const float PADDLE_SPEED = 0.6f;
     const float TEXT_SIZE = 20.0f;
 
+    // Data For Tiles
+    float tileSize = 50.0f;
+    float Tile_Width = 200.0f; // Changes the starting X
+    float Tile_Height = 250.0f;// Changes the starting Y
+    float Tile_Spacing_h = 40.0f; // Horizontal Tile Spacing
+    float Tile_Spacing_v = 20.0f; // Vertical Tile Spacing
+
     // Creating the Window
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Breakout Game", sf::Style::Titlebar | sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Breakout", sf::Style::Titlebar | sf::Style::Close);
 
     // Heading Font
     sf::Font headingFont;
@@ -105,7 +127,7 @@ int main() {
     paddleTexture.loadFromFile("C:/Breakout/Assets/MainPaddle.png");
     sf::Sprite paddleSprite;
     paddleSprite.setTexture(paddleTexture);
-    paddleSprite.setPosition(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT - 40);
+    paddleSprite.setPosition((WINDOW_WIDTH / 2.0f) + 30, WINDOW_HEIGHT - 40);
     paddleSprite.setScale(0.2f, 0.2f);
 
     // Ball Setup
@@ -114,7 +136,7 @@ int main() {
     sf::Sprite ballSprite;
     ballSprite.setTexture(ballTexture);
     ballSprite.setScale(0.2f, 0.2f);
-    ballSprite.setPosition(330.0f, 530.0f);
+    ballSprite.setPosition(330.0f, 900.0f);
     // Speed of ball
     sf::Vector2f ballVelocity(0.2f, 0.2f);
 
@@ -129,12 +151,6 @@ int main() {
     greenTileTexture.loadFromFile("C:/Breakout/Assets/GreenTile.png");
 
     sf::Sprite tiles[6][6];
-
-    float tileSize = 50.0f;
-    float Tile_Width = 200.0f; // Changes the starting X
-    float Tile_Height = 250.0f;// Changes the starting Y
-    float Tile_Spacing_h = 40.0f; // Horizontal Tile Spacing
-    float Tile_Spacing_v = 20.0f; // Vertical Tile Spacing
 
     for (int row = 0; row < 6; ++row) {
         for (int col = 0; col < 6; ++col) {
