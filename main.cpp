@@ -230,10 +230,17 @@ int main() {
             }
         }
 
-      window.clear();
-      window.draw(shape);
-      window.display();
-   }
+        window.draw(heading);
+        window.draw(level_text);
+        window.draw(v_line);
+        window.draw(h_line);
+        window.draw(PlayerNameText);
+        window.draw(ScoreText);
+        window.draw(HighScoreText);
+        window.draw(MenuText);
+        window.draw(PauseResumeText);
+        window.display();
+    }
 
-   return 0;
+    return 0;
 }
