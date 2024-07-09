@@ -92,7 +92,7 @@ int main() {
 
     // Heading Font
     sf::Font headingFont;
-    headingFont.loadFromFile("C:/Fonts/Horizon.otf");
+    headingFont.loadFromFile("resources/fonts/Horizon.otf");
 
     // Heading Text
     sf::Text heading;
@@ -106,7 +106,7 @@ int main() {
     int level = 0;
     sf::Text level_text;
     sf::Font level_font;
-    level_font.loadFromFile("C:/Fonts/Poppins-Medium.ttf");
+    level_font.loadFromFile("resources/fonts/Poppins-Medium.ttf");
     level_text.setFont(level_font);
     level_text.setString("Level: " + std::to_string(level));
     level_text.setCharacterSize(40);
@@ -124,7 +124,7 @@ int main() {
 
     // Paddle Setup
     sf::Texture paddleTexture;
-    paddleTexture.loadFromFile("C:/Breakout/Assets/MainPaddle.png");
+    paddleTexture.loadFromFile("resources/assets/MainPaddle.png");
     sf::Sprite paddleSprite;
     paddleSprite.setTexture(paddleTexture);
     paddleSprite.setPosition((WINDOW_WIDTH / 2.0f) + 30, WINDOW_HEIGHT - 40);
@@ -132,7 +132,7 @@ int main() {
 
     // Ball Setup
     sf::Texture ballTexture;
-    ballTexture.loadFromFile("C:/Breakout/Assets/Ball.png");
+    ballTexture.loadFromFile("resources/assets/ball.png");
     sf::Sprite ballSprite;
     ballSprite.setTexture(ballTexture);
     ballSprite.setScale(0.2f, 0.2f);
@@ -146,9 +146,9 @@ int main() {
     sf::Texture greenTileTexture;
 
     // Load textures from files
-    blueTileTexture.loadFromFile("C:/Breakout/Assets/BlueTile.png");
-    redTileTexture.loadFromFile("C:/Breakout/Assets/RedTile.png");
-    greenTileTexture.loadFromFile("C:/Breakout/Assets/GreenTile.png");
+    blueTileTexture.loadFromFile("resources/assets/BlueTile.png");
+    redTileTexture.loadFromFile("resources/assets/RedTile.png");
+    greenTileTexture.loadFromFile("resources/assets/GreenTile.png");
 
     sf::Sprite tiles[6][6];
 
