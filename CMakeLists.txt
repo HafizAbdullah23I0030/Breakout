@@ -8,11 +8,11 @@ if (WIN32)
     set(SFML_DIR C:/SFML/lib/cmake/SFML)
 endif (WIN32)
 
-find_package(SFML 2 COMPONENTS graphics audio REQUIRED)
-
+find_package(SFML 2 COMPONENTS system window graphics network audio REQUIRED)
 add_executable(Breakout main.cpp
         main.cpp
 )
+target_link_libraries(Breakout sfml-system sfml-window sfml-graphics sfml-network sfml-audio sfml-main)
 
-
-target_link_libraries(Breakout sfml-graphics sfml-audio)
+# Ensure the correct output directory
+set_target_properties(Breakout PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
